@@ -62,7 +62,7 @@ public class Main {
         float sum = 0;
         float average;
         Collection<Float> values = studentData.values();
-        List<Float> vals = new ArrayList(values);
+        List<Float> vals = new ArrayList<>(values);
         float min = Collections.min(studentData.values());
         float max = Collections.max(studentData.values());
         for(float val: studentData.values()){
