@@ -18,7 +18,7 @@ public class Main {
     }
 
     //Input de Datos
-    public static LinkedHashMap<String,Float> inpuData(){
+    public static LinkedHashMap<String,Float> inputData(){
         LinkedHashMap<String, Float> studentData = new LinkedHashMap<>();
         Scanner sc = new Scanner(System.in);
         String name;
@@ -43,8 +43,8 @@ public class Main {
     //Guardar en Hashmap
     public static LinkedHashMap<String, Float> allStudents(){
         LinkedHashMap <String,Float> grades = new LinkedHashMap<>();
-        for (int i = 0; i < 3; i++){
-            grades.putAll(inpuData());
+        for (int i = 0; i < 5; i++){
+            grades.putAll(inputData());
         }
         grades.putAll(stats(grades));
         return grades;
@@ -69,18 +69,17 @@ public class Main {
             sum += val;
         }
         average = sum / studentData.size();
-        stats.put("Minimo", min);
-        stats.put("Maximo", max);
-        stats.put("Promedio", Float.valueOf(df.format(average)));
-        stats.put("Mas repetido",mostRepeated(vals.toArray(new Float[0])));
-        stats.put("Menos repetido", leastFrequent(vals.toArray(new Float[0])));
+        stats.put("Min", min);
+        stats.put("Max", max);
+        stats.put("Average", Float.valueOf(df.format(average)));
+        stats.put("Most Repeated",mostRepeated(vals.toArray(new Float[0])));
+        stats.put("Least Repeated", leastFrequent(vals.toArray(new Float[0])));
         return stats;
     }
 
     //valor mas repetido
     public static float mostRepeated(Float[] vals){
         LinkedHashMap<Float, Integer> mostMap = new LinkedHashMap<>();
-
         for (float keyVal : vals){
             if(mostMap.containsKey(keyVal)){
                 int freq = mostMap.get(keyVal);
@@ -91,7 +90,6 @@ public class Main {
                 mostMap.put(keyVal, 1);
             }
         }
-
         int max_count = 0;
         float res = -1;
         for(Map.Entry<Float, Integer> val : mostMap.entrySet()){

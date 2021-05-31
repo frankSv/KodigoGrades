@@ -1,9 +1,11 @@
-Frank:10.0
-stan:9.0
-Port:9.0
-Minimo:9.0
-Maximo:10.0
-Promedio:9.33
-Mas repetido:9.0
-Menos repetido:10.0
+Franklin :10.0
+Cesar :9.0
+Ana :9.0
+Stanley:8.0
+Juan :6.0
+Min:6.0
+Max:10.0
+Average:8.4
+Most Repeated:9.0
+Least Repeated:6.0
 
