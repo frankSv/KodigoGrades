@@ -4,14 +4,20 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
+        //input Data
+        //save as map
+        //calculate stats
+        //save in file
         saveFile(allStudents());
     }
 
+    //Input de Datos
     public static LinkedHashMap<String,Float> inpuData(){
         LinkedHashMap<String, Float> studentData = new LinkedHashMap<>();
         Scanner sc = new Scanner(System.in);
@@ -34,6 +40,7 @@ public class Main {
         return studentData;
     }
 
+    //Guardar en Hashmap
     public static LinkedHashMap<String, Float> allStudents(){
         LinkedHashMap <String,Float> grades = new LinkedHashMap<>();
         for (int i = 0; i < 3; i++){
@@ -43,18 +50,19 @@ public class Main {
         return grades;
     }
 
+    //validar notas
     public static boolean validateGrade(Float grade){
         return grade >= 0.0 && grade <= 10.0;
     }
-    
-    public static LinkedHashMap<String,Float> stats(LinkedHashMap<String, Float> studentData){
-        LinkedHashMap<String,Float> stats = new LinkedHashMap<>();
 
+    //calculo de stadisticas
+    public static LinkedHashMap<String,Float> stats(LinkedHashMap<String, Float> studentData){
+        DecimalFormat df = new DecimalFormat("0.00");
+        LinkedHashMap<String,Float> stats = new LinkedHashMap<>();
         float sum = 0;
         float average;
         Collection<Float> values = studentData.values();
         List<Float> vals = new ArrayList(values);
-        int len = vals.size();
         float min = Collections.min(studentData.values());
         float max = Collections.max(studentData.values());
         for(float val: studentData.values()){
@@ -63,25 +71,27 @@ public class Main {
         average = sum / studentData.size();
         stats.put("Minimo", min);
         stats.put("Maximo", max);
-        stats.put("Promedio", average);
-        stats.put("Mas repetido",mostRepeated(vals.toArray(new Float[0]), len));
-        stats.put("Menos repetido", leastFrequent(vals.toArray(new Float[0]), len));
+        stats.put("Promedio", Float.valueOf(df.format(average)));
+        stats.put("Mas repetido",mostRepeated(vals.toArray(new Float[0])));
+        stats.put("Menos repetido", leastFrequent(vals.toArray(new Float[0])));
         return stats;
     }
 
-    public static float mostRepeated(Float[] vals, int len){
+    //valor mas repetido
+    public static float mostRepeated(Float[] vals){
         LinkedHashMap<Float, Integer> mostMap = new LinkedHashMap<>();
-        for(int i = 0; i < len; i++){
-            Float key = vals[i];
-            if(mostMap.containsKey(key)){
-                int freq = mostMap.get(key);
+
+        for (float keyVal : vals){
+            if(mostMap.containsKey(keyVal)){
+                int freq = mostMap.get(keyVal);
                 freq++;
-                mostMap.put(key, freq);
+                mostMap.put(keyVal, freq);
             }
             else{
-                mostMap.put(key, 1);
+                mostMap.put(keyVal, 1);
             }
         }
+
         int max_count = 0;
         float res = -1;
         for(Map.Entry<Float, Integer> val : mostMap.entrySet()){
@@ -93,22 +103,19 @@ public class Main {
         return res;
     }
 
-    static float leastFrequent(Float[] arr, int n){
-
+    //valor menos repetidos
+    static float leastFrequent(Float[] arr){
         Map<Float,Integer> count = new HashMap<>();
-
-        for(int i = 0; i < n; i++){
-            float key = arr[i];
-            if(count.containsKey(key)){
-                int freq = count.get(key);
+        for(float keyVal : arr){
+            if(count.containsKey(keyVal)){
+                int freq = count.get(keyVal);
                 freq++;
-                count.put(key,freq);
+                count.put(keyVal,freq);
             }
             else
-                count.put(key,1);
+                count.put(keyVal,1);
         }
-
-        int min_count = n+1;
+        int min_count = arr.length + 1;
         float res = -1;
         for(Map.Entry<Float,Integer> val : count.entrySet()){
             if (min_count >= val.getValue()){
@@ -116,10 +123,8 @@ public class Main {
                 min_count = val.getValue();
             }
         }
-
         return res;
     }
-
 
     public static void saveFile(LinkedHashMap<String, Float> studentData){
         File file = new File("notas.txt");

@@ -1,9 +1,9 @@
-Franklin Portillo:10.0
-Stanley Portillo:9.0
-Portillo Portillo:9.0
+Frank:10.0
+stan:9.0
+Port:9.0
 Minimo:9.0
 Maximo:10.0
-Promedio:9.333333
+Promedio:9.33
 Mas repetido:9.0
 Menos repetido:10.0
 
